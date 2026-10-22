@@ -1,0 +1,14 @@
+{% extends "base.html" %}{% block title %}O‘quvchilar{% endblock %}
+{% block content %}
+<div class="mb-6"><h1 class="text-2xl font-black text-navy">O‘quvchilar va guruhlar</h1><p class="text-slate-500 mt-1">Sinf va to‘garak guruhlari ro‘yxatini boshqaring.</p></div>
+<div class="grid xl:grid-cols-[320px_1fr] gap-5">
+<section class="bg-white border rounded-2xl p-5 h-fit"><h2 class="font-bold text-navy mb-4">O‘quvchi qo‘shish</h2><form method="post" class="space-y-3">
+<label class="block text-sm font-semibold">F.I.Sh.<input name="name" required maxlength="160" class="mt-1 w-full border rounded-xl px-3 py-2.5 focus:outline-brand" placeholder="Ali Valiyev"></label>
+<label class="block text-sm font-semibold">Sinf<input name="class_name" required maxlength="30" class="mt-1 w-full border rounded-xl px-3 py-2.5" placeholder="7-A"></label>
+<label class="block text-sm font-semibold">Guruh<input name="group_name" maxlength="60" class="mt-1 w-full border rounded-xl px-3 py-2.5" placeholder="Asosiy"></label>
+<button class="w-full bg-brand hover:bg-blue-700 text-white font-bold rounded-xl py-2.5">Saqlash</button></form></section>
+<section class="bg-white border rounded-2xl overflow-hidden"><div class="p-5 border-b flex justify-between"><h2 class="font-bold text-navy">Ro‘yxat</h2><span class="text-sm text-slate-500">{{ students|length }} nafar</span></div>
+<div class="overflow-x-auto"><table class="w-full text-sm"><thead class="bg-slate-50 text-slate-500"><tr><th class="text-left p-3">O‘quvchi</th><th class="text-left p-3">Sinf</th><th class="text-left p-3">Guruh</th><th class="p-3"></th></tr></thead><tbody class="divide-y">
+{% for s in students %}<tr><td class="p-3 font-semibold">{{ s.name }}</td><td class="p-3">{{ s.class_name }}</td><td class="p-3"><span class="bg-pale text-brand rounded-full px-2 py-1">{{ s.group_name }}</span></td><td class="p-3 text-right"><form method="post" action="/students/{{ s.id }}/delete" onsubmit="return confirm('O‘quvchini o‘chirasizmi?')"><button class="text-rose-600 hover:underline">O‘chirish</button></form></td></tr>{% else %}<tr><td colspan="4" class="p-8 text-center text-slate-400">Hali o‘quvchi qo‘shilmagan.</td></tr>{% endfor %}
+</tbody></table></div></section></div>
+{% endblock %}
